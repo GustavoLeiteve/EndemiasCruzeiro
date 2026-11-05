@@ -1,26 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Combate às Endemias - Cruzeiro</title>
-  <style>
-    body { font-family: sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; text-align: center; }
-    .botao { display: inline-block; background: #1a73e8; color: #fff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 18px; }
-    ol { text-align: left; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b4d3c">
+<title>Combate às Endemias – Cruzeiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f2;
+    --ink: #15231f;
+    --muted: #4d5f58;
+    --green: #0d5c48;
+    --green-ink: #ffffff;
+    --mint: #4fc19b;
+    --line: #d3dcd5;
+    --tint: #e6eee6;
+    --focus: #e0a800;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1916;
+      --ink: #eef3ee;
+      --muted: #a6b8b0;
+      --green: #4fc19b;
+      --green-ink: #07251c;
+      --line: #2b3d37;
+      --tint: #17262a;
+      --focus: #f2c230;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 22px; }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.5px) 0 0 / 24px 24px,
+      linear-gradient(160deg, #0a4636 0%, #0d5c48 55%, #137a60 100%);
+    color: #fff;
+    border-radius: 0 0 32px 32px;
+    padding: 56px 0 64px;
+  }
+  .hero .wrap { display: grid; gap: 32px; align-items: center; }
+  .icone { width: 84px; height: 84px; margin-bottom: 22px; filter: drop-shadow(0 10px 18px rgba(0,0,0,.25)); }
+  h1 { font-size: clamp(36px, 7vw, 56px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.015em; }
+  .sub { font-size: 20px; line-height: 1.5; color: #d5ece3; margin: 0 0 30px; max-width: 30ch; }
+  .botao {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    background: #fff; color: #0a4636; text-decoration: none; font-weight: 700; font-size: 20px;
+    padding: 18px 30px; border-radius: 14px; width: 100%; max-width: 340px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.28);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .botao:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,.32); }
+  .botao:focus-visible { outline-color: #f2c230; }
+  .botao svg { width: 24px; height: 24px; }
+  .pilula {
+    display: inline-block; margin-top: 16px; padding: 5px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.14); color: #e4f4ed; font-size: 15px;
+  }
+  .arte { display: none; }
+  @media (min-width: 800px) {
+    .hero { padding: 80px 0 88px; }
+    .hero .wrap { grid-template-columns: 1.15fr .85fr; gap: 48px; }
+    .icone { display: none; }
+    .arte { display: grid; place-items: center; }
+    .arte-tile {
+      width: 260px; height: 260px; border-radius: 56px;
+      background: linear-gradient(145deg, #5fd0aa, #1a8a6c);
+      display: grid; place-items: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.35);
+      transform: rotate(-6deg);
+    }
+    .arte-tile svg { width: 150px; height: 150px; }
+  }
+
+  /* Seções */
+  section { padding: 56px 0 0; }
+  h2 { font-size: 28px; line-height: 1.2; margin: 0 0 24px; letter-spacing: -0.01em; }
+
+  .destaques { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .destaque { display: flex; gap: 16px; align-items: flex-start; }
+  .ico {
+    flex: none; width: 48px; height: 48px; border-radius: 14px; background: var(--tint); color: var(--green);
+    display: grid; place-items: center;
+  }
+  .ico svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .destaque h3 { font-size: 18px; margin: 2px 0 4px; }
+  .destaque p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.45; }
+
+  .passos { list-style: none; padding: 0; margin: 0; counter-reset: p; max-width: 560px; }
+  .passos li { position: relative; padding: 0 0 28px 62px; counter-increment: p; }
+  .passos li::before {
+    content: counter(p); position: absolute; left: 0; top: 0; width: 42px; height: 42px; border-radius: 50%;
+    background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-weight: 700; font-size: 19px;
+  }
+  .passos li::after { content: ""; position: absolute; left: 20px; top: 48px; bottom: 6px; width: 2px; background: var(--line); }
+  .passos li:last-child { padding-bottom: 0; }
+  .passos li:last-child::after { display: none; }
+  .passos strong { display: block; font-size: 19px; margin-bottom: 2px; }
+  .passos span { color: var(--muted); }
+
+  .aviso {
+    margin-top: 36px; max-width: 560px; background: var(--tint); border-radius: 16px; padding: 18px 20px;
+    border-left: 5px solid var(--green);
+  }
+  .aviso strong { display: block; margin-bottom: 4px; }
+  .aviso p { margin: 0; color: var(--muted); font-size: 16px; }
+
+  .faq { max-width: 680px; border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative; font-weight: 700;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    font-size: 26px; font-weight: 400; color: var(--green); line-height: 1;
+  }
+  details[open] summary::after { content: "–"; }
+  details p { margin: 0 0 18px; color: var(--muted); max-width: 60ch; }
+
+  .planos { list-style: none; margin: 0 0 18px; padding: 0; max-width: 360px; }
+  .planos li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+  .planos li:last-child { border-bottom: 0; }
+  .planos b { color: var(--green); white-space: nowrap; }
+  footer { margin-top: 64px; border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 15px; }
+  footer a { color: var(--green); }
+  @media (prefers-reduced-motion: reduce) { .botao { transition: none; } .botao:hover { transform: none; } }
+</style>
 </head>
 <body>
-  <h1>Combate às Endemias</h1>
-  <p>Baixe o aplicativo para Android:</p>
-  <a class="botao" href="https://github.com/GustavoLeiteve/EndemiasCruzeiro/releases/latest/download/Endemias.apk">Baixar APK</a>
 
-  <h3>Como instalar</h3>
-  <ol>
-    <li>Toque em "Baixar APK".</li>
-    <li>Abra o arquivo baixado.</li>
-    <li>Se o Android pedir, permita a instalação de fontes desconhecidas.</li>
-    <li>Toque em Instalar.</li>
-  </ol>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="emblema" viewBox="0 0 64 64">
+    <path d="M32 5l21 7.5V29c0 14.5-9.2 24.5-21 30C20.2 53.5 11 43.5 11 29V12.5z" fill="#fff"/>
+    <path d="M32 20v22M21 31h22" stroke="#0d5c48" stroke-width="6" stroke-linecap="round" fill="none"/>
+  </symbol>
+</svg>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <svg class="icone" viewBox="0 0 84 84" aria-hidden="true">
+        <rect width="84" height="84" rx="22" fill="#4fc19b"/>
+        <use href="#emblema" x="14" y="14" width="56" height="56"/>
+      </svg>
+      <h1>Combate às Endemias</h1>
+      <p class="sub">Aplicativo para Android. Baixe, instale e use no celular, sem precisar da Play Store.</p>
+      <a class="botao" id="baixar" href="https://github.com/GustavoLeiteve/EndemiasCruzeiro/releases/latest/download/Endemias.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Baixar APK
+      </a>
+      <div><span class="pilula" id="versao">Somente para Android</span></div>
+    </div>
+    <div class="arte" aria-hidden="true">
+      <div class="arte-tile"><svg viewBox="0 0 64 64"><use href="#emblema"/></svg></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="destaques">
+      <div class="destaque">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></div>
+        <div><h3>Planos flexíveis</h3><p>Do plano de 30 dias ao vitalício, você escolhe o que cabe no seu uso.</p></div>
+      </div>
+      <div class="destaque">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+        <div><h3>Instalação direta</h3><p>Baixe o arquivo e instale no celular, sem passar pela Play Store.</p></div>
+      </div>
+      <div class="destaque">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 7H4c0-1 2-2 2-7z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
+        <div><h3>Aviso de atualização</h3><p>Ao abrir, o app avisa quando existe uma versão nova.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Como instalar</h2>
+    <ol class="passos">
+      <li><strong>Baixe o arquivo</strong><span>Toque em Baixar APK e espere o download terminar.</span></li>
+      <li><strong>Abra o Endemias.apk</strong><span>Pela notificação ou pela pasta Downloads do celular.</span></li>
+      <li><strong>Permita a instalação</strong><span>Se o Android bloquear, toque em Configurações e ative Permitir desta fonte.</span></li>
+      <li><strong>Instale e abra</strong><span>Toque em Instalar e depois em Abrir.</span></li>
+    </ol>
+    <div class="aviso">
+      <strong>Apareceu um aviso de segurança?</strong>
+      <p>É esperado: o app não está na Play Store, então o Android pede confirmação. Toque em Mais detalhes e depois em Instalar mesmo assim.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Perguntas frequentes</h2>
+    <div class="faq">
+      <details open>
+        <summary>Quais são os planos de uso e quanto custam?</summary>
+        <div>
+          <ul class="planos">
+            <li><span>30 dias</span><b>R$ 9,99</b></li>
+            <li><span>60 dias</span><b>R$ 17,99</b></li>
+            <li><span>90 dias</span><b>R$ 24,99</b></li>
+            <li><span>Anual</span><b>R$ 49,99</b></li>
+            <li><span>Vitalício</span><b>R$ 89,99</b></li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>Funciona no iPhone?</summary>
+        <p>Não. Este arquivo é somente para celulares Android.</p>
+      </details>
+      <details>
+        <summary>Como atualizo o app?</summary>
+        <p>Quando houver versão nova, o app avisa ao ser aberto. Toque em Baixar, abra o arquivo e instale por cima da versão atual. Os dados do app são mantidos.</p>
+      </details>
+      <details>
+        <summary>O download não começou. O que faço?</summary>
+        <p>Confira a conexão com a internet e toque em Baixar APK de novo. Se o navegador perguntar, permita o download do arquivo.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    Combate às Endemias – Cruzeiro ·
+    <a href="https://github.com/GustavoLeiteve/EndemiasCruzeiro/releases">Todas as versões</a>
+  </footer>
+</main>
+
+<script>
+  (function () {
+    var el = document.getElementById("versao");
+    fetch("versao.json?t=" + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (v) {
+        if (v && v.versionName) { el.textContent = "Versão " + v.versionName + " · Android"; }
+      })
+      .catch(function () {});
+  })();
+</script>
 </body>
 </html>
